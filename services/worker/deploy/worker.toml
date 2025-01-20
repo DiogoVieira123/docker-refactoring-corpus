@@ -1,0 +1,5 @@
+[worker]
+concurrency = 4
+prefetch = 32
+
+# audit_log = false
