@@ -1,6 +1,4 @@
-FROM debian:12-slim
-
-RUN apt-get update && apt-get install -y --no-install-recommends python3 python3-pip && rm -rf /var/lib/apt/lists/*
+FROM python:3.11-slim-bookworm
 
 WORKDIR /srv/worker
 
