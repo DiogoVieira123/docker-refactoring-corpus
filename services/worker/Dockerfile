@@ -7,7 +7,6 @@ COPY requirements.txt /srv/worker/requirements.txt
 
 RUN pip3 install --no-cache-dir --break-system-packages -r /srv/worker/requirements.txt
 
-COPY deploy/worker.toml /tmp/worker.toml
-RUN mv /tmp/worker.toml /etc/worker.toml
+COPY deploy/worker.toml /etc/worker.toml
 
 CMD ["python3", "-m", "worker.tasks"]
