@@ -1,0 +1,5 @@
+[authd]
+issuer = "https://auth.internal.example.com"
+token_ttl = "15m"
+
+# audit = false

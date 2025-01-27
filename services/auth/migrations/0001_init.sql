@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS tokens (
+    id BIGSERIAL PRIMARY KEY,
+    subject TEXT NOT NULL,
+    issued_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
