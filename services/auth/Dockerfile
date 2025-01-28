@@ -13,6 +13,7 @@ FROM debian:12-slim
 RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /out/authd /usr/local/bin/authd
+COPY --from=builder /src/migrations /opt/authd/migrations
 
 EXPOSE 4000
 ENTRYPOINT ["/usr/local/bin/authd"]
