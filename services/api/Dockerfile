@@ -6,7 +6,15 @@ LABEL org.opencontainers.image.title="api" org.opencontainers.image.version="1.4
 
 RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates curl && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && apt-get install -y --no-install-recommends jq tzdata && mkdir -p /opt/support/bin && ln -sf /usr/bin/jq /opt/support/bin/jq && ln -snf /usr/share/zoneinfo/Etc/UTC /etc/localtime && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+        jq \
+        tzdata \
+ && mkdir -p /opt/support/bin \
+ && ln -sf /usr/bin/jq /opt/support/bin/jq \
+ && ln -snf /usr/share/zoneinfo/Etc/UTC /etc/localtime \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
 
 ADD https://raw.githubusercontent.com/nodejs/node/v20.11.0/LICENSE /opt/notices/node_license.txt
 
