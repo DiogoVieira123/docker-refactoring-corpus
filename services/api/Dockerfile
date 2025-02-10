@@ -1,6 +1,10 @@
 FROM node:20.11.1-bookworm-slim
 
-WORKDIR /app
+ENV APP_HOME=/app \
+    NODE_ENV=production \
+    PORT=3000
+
+WORKDIR ${APP_HOME}
 
 LABEL org.opencontainers.image.title="api" org.opencontainers.image.version="1.4.0" org.opencontainers.image.vendor="Platform" com.platform.owner="core team" com.platform.support="#core"
 
@@ -18,12 +22,12 @@ RUN apt-get update \
 
 ADD https://raw.githubusercontent.com/nodejs/node/v20.12.0/LICENSE /opt/notices/node_license.txt
 
-COPY package.json /app/package.json
-COPY package-lock.json /app/package-lock.json
+COPY package.json ${APP_HOME}/package.json
+COPY package-lock.json ${APP_HOME}/package-lock.json
 
 RUN npm ci --omit=dev
 
-COPY src /app/src
+COPY src ${APP_HOME}/src
 
-EXPOSE 3000
+EXPOSE ${PORT}
 CMD ["node", "src/server.js"]
