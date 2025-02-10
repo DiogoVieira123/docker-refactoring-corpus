@@ -16,7 +16,7 @@ RUN apt-get update \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
-ADD https://raw.githubusercontent.com/nodejs/node/v20.11.0/LICENSE /opt/notices/node_license.txt
+ADD https://raw.githubusercontent.com/nodejs/node/v20.12.0/LICENSE /opt/notices/node_license.txt
 
 COPY package.json /app/package.json
 COPY package-lock.json /app/package-lock.json
