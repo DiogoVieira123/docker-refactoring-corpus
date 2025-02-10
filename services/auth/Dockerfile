@@ -1,4 +1,4 @@
-FROM golang:1.21-bookworm
+FROM golang:1.21-bookworm AS tools
 
 WORKDIR /src
 
@@ -24,7 +24,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates
 
 COPY --from=builder /out/authd /usr/local/bin/authd
 COPY --from=builder /src/migrations /opt/authd/migrations
-COPY --from=0 /out/authctl /usr/local/bin/authctl
+COPY --from=tools /out/authctl /usr/local/bin/authctl
 
 EXPOSE 4000
 ENTRYPOINT ["/usr/local/bin/authd"]
