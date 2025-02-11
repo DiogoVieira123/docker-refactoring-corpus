@@ -1,8 +1,8 @@
 FROM node:20.11.1-bookworm-slim
 
-ENV APP_HOME=/app \
+ENV APP_HOME=/srv/api \
     NODE_ENV=production \
-    PORT=3000
+    PORT=8080
 
 WORKDIR ${APP_HOME}
 
