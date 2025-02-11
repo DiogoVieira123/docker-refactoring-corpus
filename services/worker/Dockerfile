@@ -12,13 +12,8 @@ COPY requirements.txt /srv/worker/requirements.txt
 
 RUN pip3 install --no-cache-dir --break-system-packages -r /srv/worker/requirements.txt
 
-RUN groupadd --system --gid 10002 worker \
- && useradd --system --uid 10002 --gid worker --home /srv/worker worker \
- && mkdir -p /var/lib/worker/spool /var/log/worker \
- && chown -R worker:worker /var/lib/worker /var/log/worker /srv/worker \
- && ln -snf /usr/share/zoneinfo/Etc/UTC /etc/localtime \
- && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
- && printf 'umask 027\n' >> /etc/profile
+COPY --chmod=0755 deploy/install_runtime.sh /tmp/install_runtime.sh
+RUN /tmp/install_runtime.sh && rm /tmp/install_runtime.sh
 
 COPY deploy/worker.toml /etc/worker.toml
 
