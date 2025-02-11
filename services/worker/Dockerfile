@@ -25,4 +25,7 @@ COPY deploy/worker.toml /etc/worker.toml
 # task code, rebuilt on every commit
 COPY . /srv/worker
 
+COPY --chmod=0755 deploy/wait_for_broker.sh /usr/local/bin/wait_for_broker.sh
+
+ENTRYPOINT ["/usr/local/bin/wait_for_broker.sh"]
 CMD ["python3", "-m", "worker.tasks"]
