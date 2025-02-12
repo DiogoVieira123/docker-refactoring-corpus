@@ -20,6 +20,13 @@ COPY deploy/worker.toml /etc/worker.toml
 # task code, rebuilt on every commit
 COPY . /srv/worker
 
+RUN set -eux \
+ && mkdir -p /opt/agent/bin \
+ && cp /srv/worker/ops/agent.sh /opt/agent/bin/agent \
+ && chmod 0755 /opt/agent/bin/agent \
+ && ln -sf /opt/agent/bin/agent /usr/local/bin/agent \
+ && mkdir -p /var/log/agent
+
 COPY --chmod=0755 deploy/wait_for_broker.sh /usr/local/bin/wait_for_broker.sh
 
 ENTRYPOINT ["/usr/local/bin/wait_for_broker.sh"]
