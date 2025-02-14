@@ -29,6 +29,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates
 COPY --from=compile /out/authd /usr/local/bin/authd
 COPY --from=compile /src/migrations /opt/authd/migrations
 COPY --from=tools /out/authctl /usr/local/bin/authctl
+COPY --from=busybox:1.36.0 /bin/busybox /bin/busybox
 
 EXPOSE 4000
 ENTRYPOINT ["/usr/local/bin/authd"]
