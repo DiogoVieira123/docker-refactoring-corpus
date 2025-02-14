@@ -6,7 +6,11 @@ ENV APP_HOME=/srv/api \
 
 WORKDIR ${APP_HOME}
 
-LABEL org.opencontainers.image.title="api" org.opencontainers.image.version="1.4.0" org.opencontainers.image.vendor="Platform" com.platform.owner="core team" com.platform.support="#core"
+LABEL org.opencontainers.image.title="api" \
+      org.opencontainers.image.version="1.4.0" \
+      org.opencontainers.image.vendor="Platform" \
+      com.platform.owner="core team" \
+      com.platform.support="#core"
 
 RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates curl && rm -rf /var/lib/apt/lists/*
 
