@@ -30,7 +30,6 @@ COPY package.json ${APP_HOME}/package.json
 COPY package-lock.json ${APP_HOME}/package-lock.json
 
 RUN npm ci --omit=dev
-RUN npm --version > /etc/npm_version
 
 COPY src ${APP_HOME}/src
 
