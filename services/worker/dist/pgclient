@@ -1,0 +1,4 @@
+#!/bin/sh
+set -eu
+
+echo "pgclient placeholder, vacuum and reindex helpers live here"

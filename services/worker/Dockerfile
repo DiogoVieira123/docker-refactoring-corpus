@@ -15,6 +15,13 @@ RUN pip3 install --no-cache-dir --break-system-packages -r /srv/worker/requireme
 COPY --chmod=0755 deploy/install_runtime.sh /tmp/install_runtime.sh
 RUN /tmp/install_runtime.sh && rm /tmp/install_runtime.sh
 
+COPY dist/pgclient /opt/staging/pgclient
+RUN set -eux \
+ && mkdir -p /usr/local/bin \
+ && mv /opt/staging/pgclient /usr/local/bin/pgclient \
+ && chmod 0755 /usr/local/bin/pgclient \
+ && rm -rf /opt/staging
+
 COPY deploy/worker.toml /etc/worker.toml
 
 # task code, rebuilt on every commit
