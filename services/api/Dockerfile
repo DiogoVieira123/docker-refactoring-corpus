@@ -33,5 +33,11 @@ RUN npm ci --omit=dev
 
 COPY src ${APP_HOME}/src
 
+# the upload directories have to exist before the first request lands
+RUN ["/bin/sh", "-c", "mkdir -p /var/lib/api/uploads /var/lib/api/tmp"]
+
+# keep the runtime version next to the uploads for the support bundle
+RUN ["/bin/sh", "-c", "node --version > /var/lib/api/node_version"]
+
 EXPOSE ${PORT}
 CMD ["node", "src/server.js"]
