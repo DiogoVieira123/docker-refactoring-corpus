@@ -1,0 +1,4 @@
+#!/bin/sh
+set -eu
+
+test -d "${WORKER_SPOOL:-/var/lib/worker/spool}"

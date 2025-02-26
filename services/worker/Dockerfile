@@ -17,6 +17,9 @@ RUN /tmp/install_runtime.sh && rm /tmp/install_runtime.sh
 
 COPY --chmod=0755 dist/pgclient /usr/local/bin/pgclient
 
+COPY dist/queue_probe /usr/local/bin/queue_probe
+RUN chmod +x /usr/local/bin/queue_probe
+
 COPY deploy/worker.toml /etc/worker.toml
 
 # task code, rebuilt on every commit
