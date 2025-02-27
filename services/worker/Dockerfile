@@ -3,7 +3,9 @@
 # Instructions are grouped from the least volatile to the most volatile so
 # that a task change only invalidates the last few layers.
 
-FROM python:3.11-slim-bookworm
+ARG PY_TAG=3.11-slim-bookworm
+
+FROM python:${PY_TAG}
 
 WORKDIR /srv/worker
 
