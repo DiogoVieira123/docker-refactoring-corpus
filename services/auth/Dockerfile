@@ -18,12 +18,6 @@ RUN go mod download
 COPY . .
 RUN CGO_ENABLED=0 go build -o /out/authd ./cmd/authd
 
-FROM debian:12-slim AS config
-
-COPY deploy/authd.toml /tmp/authd.toml
-
-RUN sed -i "s/^# audit.*/audit = true/" /tmp/authd.toml
-
 FROM debian:12-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates && rm -rf /var/lib/apt/lists/*
@@ -33,7 +27,8 @@ COPY --from=compile /src/migrations /opt/authd/migrations
 COPY --from=tools /out/authctl /usr/local/bin/authctl
 COPY --from=busybox:1.36.1 /bin/busybox /bin/busybox
 
-COPY --from=config /tmp/authd.toml /etc/authd/authd.toml
+COPY deploy/authd.toml /etc/authd/authd.toml
+RUN sed -i "s/^# audit.*/audit = true/" /etc/authd/authd.toml
 
 EXPOSE 4000
 ENTRYPOINT ["/usr/local/bin/authd"]
