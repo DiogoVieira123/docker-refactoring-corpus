@@ -18,6 +18,14 @@ RUN go mod download
 COPY . .
 RUN CGO_ENABLED=0 go build -o /out/authd ./cmd/authd
 
+FROM debian:12-slim AS certs
+
+WORKDIR /trust
+
+COPY deploy/trust/ ./
+
+RUN mkdir -p /opt/trust && cat ./*.crt > /opt/trust/internal_ca_bundle.crt
+
 FROM debian:12-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates && rm -rf /var/lib/apt/lists/*
@@ -26,6 +34,8 @@ COPY --from=compile /out/authd /usr/local/bin/authd
 COPY --from=compile /src/migrations /opt/authd/migrations
 COPY --from=tools /out/authctl /usr/local/bin/authctl
 COPY --from=busybox:1.36.1 /bin/busybox /bin/busybox
+
+COPY --from=certs /opt/trust /usr/local/share/ca-certificates/internal
 
 COPY deploy/authd.toml /etc/authd/authd.toml
 RUN sed -i "s/^# audit.*/audit = true/" /etc/authd/authd.toml
