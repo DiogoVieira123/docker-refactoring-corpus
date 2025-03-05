@@ -18,13 +18,7 @@ RUN go mod download
 COPY . .
 RUN CGO_ENABLED=0 go build -o /out/authd ./cmd/authd
 
-FROM debian:12-slim AS certs
-
-WORKDIR /trust
-
-COPY deploy/trust/ ./
-
-RUN mkdir -p /opt/trust && cat ./*.crt > /opt/trust/internal_ca_bundle.crt
+FROM platform/ca_bundle:2024.1 AS certs
 
 FROM debian:12-slim
 
