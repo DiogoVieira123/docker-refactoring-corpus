@@ -1,4 +1,6 @@
-FROM node:20.11.1-bookworm-slim
+ARG NODE_TAG=20.11.1-bookworm-slim
+
+FROM node:${NODE_TAG}
 
 ENV APP_HOME=/srv/api \
     NODE_ENV=production \
