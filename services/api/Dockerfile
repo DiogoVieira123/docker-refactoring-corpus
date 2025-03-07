@@ -6,6 +6,12 @@ ENV APP_HOME=/srv/api \
     NODE_ENV=production \
     PORT=8080
 
+ENV API_UPLOAD_DIR /var/lib/api/uploads
+
+ENV \
+    API_LOG_FORMAT=json \
+    API_REQUEST_TIMEOUT=30
+
 WORKDIR ${APP_HOME}
 
 LABEL org.opencontainers.image.title="api" \
