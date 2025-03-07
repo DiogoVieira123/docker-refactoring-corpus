@@ -1,4 +1,4 @@
-ARG NODE_TAG=20.11.1-bookworm-slim
+ARG NODE_TAG=20.12.2-bookworm-slim
 
 FROM node:${NODE_TAG}
 
