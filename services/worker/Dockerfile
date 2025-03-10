@@ -7,6 +7,10 @@ ARG PY_TAG=3.11-slim-bookworm
 
 FROM python:${PY_TAG}
 
+ARG PY_TAG
+
+LABEL com.platform.base_tag="${PY_TAG}"
+
 WORKDIR /srv/worker
 
 # python dependencies, rebuilt when the lock file moves
