@@ -4,12 +4,15 @@
 # that a task change only invalidates the last few layers.
 
 ARG PY_TAG=3.11-slim-bookworm
+ARG BUILD_REVISION
 
 FROM python:${PY_TAG}
 
 ARG PY_TAG
+ARG BUILD_REVISION
 
-LABEL com.platform.base_tag="${PY_TAG}"
+LABEL com.platform.base_tag="${PY_TAG}" \
+      org.opencontainers.image.revision="${BUILD_REVISION:-unknown}"
 
 WORKDIR /srv/worker
 
