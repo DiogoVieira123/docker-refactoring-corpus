@@ -6,7 +6,7 @@
 ARG PY_TAG=3.11-slim-bookworm
 ARG BUILD_REVISION
 
-FROM python:${PY_TAG}
+FROM docker.io/library/python:${PY_TAG}
 
 ARG PY_TAG
 ARG BUILD_REVISION
