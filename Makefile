@@ -1,12 +1,15 @@
 IMAGE_PREFIX ?= platform
 
-.PHONY: all contexts services api worker auth ca_bundle
+.PHONY: all contexts services api worker auth authtools ca_bundle
 
 all: contexts services
 
-contexts: ca_bundle
+contexts: authtools ca_bundle
 
 services: api worker auth
+
+authtools:
+	docker build -t $(IMAGE_PREFIX)/authtools:1.4.0 build/authtools
 
 ca_bundle:
 	docker build -t $(IMAGE_PREFIX)/ca_bundle:2024.1 build/ca_bundle

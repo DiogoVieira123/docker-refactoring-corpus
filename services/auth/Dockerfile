@@ -1,14 +1,3 @@
-FROM golang:1.21-bookworm AS tools
-
-WORKDIR /src
-
-COPY go.mod go.sum ./
-RUN go mod download
-
-COPY . .
-RUN CGO_ENABLED=0 go build -o /out/authctl ./cmd/authctl
-RUN CGO_ENABLED=0 go build -o /out/policyctl ./cmd/policyctl
-
 FROM golang:1.21-bookworm AS compile
 
 WORKDIR /src
@@ -27,8 +16,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates
 
 COPY --from=compile /out/authd /usr/local/bin/authd
 COPY --from=compile /src/migrations /opt/authd/migrations
-COPY --from=tools /out/policyctl /usr/local/bin/policyctl
-COPY --from=tools /out/authctl /usr/local/bin/authctl
+COPY --from=platform/authtools:1.4.0 /out/policyctl /usr/local/bin/policyctl
+COPY --from=platform/authtools:1.4.0 /out/authctl /usr/local/bin/authctl
 COPY --from=busybox:1.36.1 /bin/busybox /bin/busybox
 
 COPY --from=certs /opt/trust /usr/local/share/ca-certificates/internal
