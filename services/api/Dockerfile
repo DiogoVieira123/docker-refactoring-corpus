@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1.7
 ARG NODE_TAG=20.12.2-bookworm-slim
 
 FROM node:${NODE_TAG}
@@ -22,15 +23,16 @@ LABEL org.opencontainers.image.title="api" \
 
 RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates curl && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update \
- && apt-get install -y --no-install-recommends \
-        jq \
-        tzdata \
- && mkdir -p /opt/support/bin \
- && ln -sf /usr/bin/jq /opt/support/bin/jq \
- && ln -snf /usr/share/zoneinfo/Etc/UTC /etc/localtime \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
+RUN <<SUPPORT_UTILITIES
+set -eux
+apt-get update
+apt-get install -y --no-install-recommends jq tzdata
+mkdir -p /opt/support/bin
+ln -sf /usr/bin/jq /opt/support/bin/jq
+ln -snf /usr/share/zoneinfo/Etc/UTC /etc/localtime
+apt-get clean
+rm -rf /var/lib/apt/lists/*
+SUPPORT_UTILITIES
 
 ADD https://raw.githubusercontent.com/nodejs/node/v20.12.0/LICENSE /opt/notices/node_license.txt
 
