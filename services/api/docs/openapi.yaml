@@ -1,0 +1,11 @@
+openapi: 3.0.3
+info:
+  title: Platform API
+  version: 1.5.0
+paths:
+  /healthz:
+    get:
+      summary: Liveness probe
+      responses:
+        '200':
+          description: The service is up
