@@ -46,10 +46,11 @@ COPY src ${APP_HOME}/src
 # lay out the upload directories and record the runtime version
 RUN ["/bin/sh", "-c", "mkdir -p /var/lib/api/uploads /var/lib/api/tmp && node --version > /var/lib/api/node_version"]
 
-ADD docs/openapi.yaml ${APP_HOME}/openapi.yaml
+COPY docs/openapi.yaml ${APP_HOME}/openapi.yaml
 
-RUN mkdir -p /opt/openapi
-RUN cp ${APP_HOME}/openapi.yaml /opt/openapi/openapi.yaml && chmod -R a+r /opt/openapi
+RUN mkdir -p /opt/openapi \
+ && cp ${APP_HOME}/openapi.yaml /opt/openapi/openapi.yaml \
+ && chmod -R a+r /opt/openapi
 
 EXPOSE ${PORT}
 CMD ["node", "src/server.js"]
