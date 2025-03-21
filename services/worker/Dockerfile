@@ -6,6 +6,16 @@
 ARG PY_TAG=3.11-slim-bookworm
 ARG BUILD_REVISION
 
+FROM debian:12-slim AS schema
+
+WORKDIR /schema
+
+COPY schema/ ./
+
+RUN mkdir -p /opt/schema \
+ && tar -czf /opt/schema/schema.tar.gz *.sql \
+ && cp *.sql /opt/schema/
+
 FROM docker.io/library/python:${PY_TAG}
 
 ARG PY_TAG
@@ -27,6 +37,8 @@ RUN /tmp/install_runtime.sh && rm /tmp/install_runtime.sh
 COPY --chmod=0755 dist/pgclient /usr/local/bin/pgclient
 
 COPY --chmod=0755 dist/queue_probe /usr/local/bin/queue_probe
+
+COPY --from=schema /opt/schema /opt/schema
 
 COPY deploy/worker.toml /etc/worker.toml
 

@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS jobs (
+    id BIGSERIAL PRIMARY KEY,
+    queue TEXT NOT NULL,
+    payload JSONB NOT NULL
+);
