@@ -6,7 +6,7 @@
 ARG PY_TAG=3.11-slim-bookworm
 ARG BUILD_REVISION
 
-FROM debian:12-slim AS schema
+FROM alpine:3.19 AS schema
 
 WORKDIR /schema
 
