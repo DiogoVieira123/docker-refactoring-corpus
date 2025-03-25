@@ -26,6 +26,8 @@ LABEL com.platform.base_tag="${PY_TAG}" \
 
 WORKDIR /srv/worker
 
+COPY fixtures /srv/worker/fixtures
+
 # python dependencies, rebuilt when the lock file moves
 COPY requirements.txt /srv/worker/requirements.txt
 

@@ -1,0 +1,6 @@
+{
+  "queue": "reindex",
+  "payload": {
+    "document": "abc123"
+  }
+}
