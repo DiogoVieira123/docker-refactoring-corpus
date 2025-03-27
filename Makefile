@@ -10,6 +10,7 @@ services: api worker auth
 
 authtools:
 	docker build -t $(IMAGE_PREFIX)/authtools:1.4.0 build/authtools
+	docker tag $(IMAGE_PREFIX)/authtools:1.4.0 ghcr.local/$(IMAGE_PREFIX)/authtools:1.4.0
 
 ca_bundle:
 	docker build -t $(IMAGE_PREFIX)/ca_bundle:2024.1 build/ca_bundle

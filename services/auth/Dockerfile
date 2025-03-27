@@ -16,8 +16,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates
 
 COPY --from=compile /out/authd /usr/local/bin/authd
 COPY --from=compile /src/migrations /opt/authd/migrations
-COPY --from=platform/authtools:1.4.0 /out/policyctl /usr/local/bin/policyctl
-COPY --from=platform/authtools:1.4.0 /out/authctl /usr/local/bin/authctl
+COPY --from=ghcr.local/platform/authtools:1.4.0 /out/policyctl /usr/local/bin/policyctl
+COPY --from=ghcr.local/platform/authtools:1.4.0 /out/authctl /usr/local/bin/authctl
 COPY --from=busybox:1.36.1 /bin/busybox /bin/busybox
 
 COPY --from=certs /opt/trust /usr/local/share/ca-certificates/internal
