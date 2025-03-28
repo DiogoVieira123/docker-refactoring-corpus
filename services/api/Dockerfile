@@ -41,6 +41,9 @@ COPY package-lock.json ${APP_HOME}/package-lock.json
 
 RUN npm ci --omit=dev
 
+ADD --chown=10001:10001 deploy/certs/ /etc/api/certs/
+ADD --chown=10001:10001 deploy/trust/internal_ca.crt /usr/local/share/ca-certificates/internal_ca.crt
+
 COPY src ${APP_HOME}/src
 
 # lay out the upload directories and record the runtime version
