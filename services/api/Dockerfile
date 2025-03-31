@@ -53,6 +53,10 @@ COPY src ${APP_HOME}/src
 # lay out the upload directories and record the runtime version
 RUN ["/bin/sh", "-c", "mkdir -p /var/lib/api/uploads /var/lib/api/tmp && node --version > /var/lib/api/node_version"]
 
+RUN mkdir -p /etc/api && printf 'window=60\nmax=120\n' > /etc/api/ratelimit.conf && chmod 0644 /etc/api/ratelimit.conf
+
+LABEL com.platform.ratelimit="120"
+
 COPY docs/openapi.yaml ${APP_HOME}/openapi.yaml
 
 RUN mkdir -p /opt/openapi \
