@@ -26,8 +26,6 @@ LABEL com.platform.base_tag="${PY_TAG}" \
 
 WORKDIR /srv/worker
 
-COPY fixtures /srv/worker/fixtures
-
 # python dependencies, rebuilt when the lock file moves
 COPY requirements.txt /srv/worker/requirements.txt
 
@@ -46,6 +44,7 @@ COPY deploy/worker.toml /etc/worker.toml
 
 # task code, rebuilt on every commit
 COPY . /srv/worker
+COPY fixtures/ /srv/worker/fixtures/
 
 RUN sh /srv/worker/ops/install_agent.sh
 
