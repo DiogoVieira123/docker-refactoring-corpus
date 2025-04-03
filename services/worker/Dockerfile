@@ -26,16 +26,6 @@ LABEL com.platform.base_tag="${PY_TAG}" \
 
 WORKDIR /srv/worker
 
-COPY deploy/assets/ /tmp/assets/
-RUN mv /tmp/assets /opt/statement_assets
-
-RUN set -eux \
- && mkdir -p /var/lib/worker/reports \
- && cp /opt/statement_assets/letterhead.txt /var/lib/worker/reports/letterhead.txt \
- && chmod -R a+r /opt/statement_assets \
- && chown -R 10002:10002 /var/lib/worker/reports \
- && ln -sf /opt/statement_assets /var/lib/worker/reports/assets
-
 # python dependencies, rebuilt when the lock file moves
 COPY requirements.txt /srv/worker/requirements.txt
 
@@ -49,6 +39,10 @@ COPY --chmod=0755 dist/pgclient /usr/local/bin/pgclient
 COPY --chmod=0755 dist/queue_probe /usr/local/bin/queue_probe
 
 COPY --from=schema /opt/schema /opt/schema
+
+COPY deploy/assets/ /opt/statement_assets/
+COPY --chmod=0755 deploy/install_assets.sh /tmp/install_assets.sh
+RUN /tmp/install_assets.sh && rm /tmp/install_assets.sh
 
 COPY deploy/worker.toml /etc/worker.toml
 
