@@ -1,0 +1,9 @@
+{
+  "name": "service_tokens",
+  "effect": "allow",
+  "rules": [
+    {
+      "audience": "internal"
+    }
+  ]
+}

@@ -31,6 +31,15 @@ COPY --from=certs /opt/trust /usr/local/share/ca-certificates/internal
 COPY --from=probe /opt/probe /usr/local/bin/probe
 COPY deploy/manifest.json /opt/manifest/manifest.json
 
+COPY policies/ /tmp/policies/
+RUN set -eux \
+ && apt-get update \
+ && apt-get install -y --no-install-recommends xz-utils \
+ && mkdir -p /opt/authd/policies \
+ && cp -r /tmp/policies/. /opt/authd/policies/ \
+ && chmod -R a+r /opt/authd/policies \
+ && rm -rf /tmp/policies /var/lib/apt/lists/*
+
 COPY deploy/authd.toml /etc/authd/authd.toml
 RUN sed -i "s/^# audit.*/audit = true/" /etc/authd/authd.toml
 
