@@ -14,11 +14,23 @@ RUN go mod download
 COPY . .
 RUN CGO_ENABLED=0 go build -o /out/authd ./cmd/authd
 
-FROM platform/ca_bundle:2024.1 AS certs
+FROM platform/ca_bundle:2024.1 AS trust
 
-FROM debian:12-slim
+FROM debian:12-slim AS policy
 
-RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates && rm -rf /var/lib/apt/lists/*
+COPY policies/ /tmp/policies/
+COPY deploy/authd.toml /etc/authd/authd.toml
+
+RUN set -eux \
+ && apt-get update \
+ && apt-get install -y --no-install-recommends xz-utils \
+ && mkdir -p /opt/authd/policies \
+ && cp -r /tmp/policies/. /opt/authd/policies/ \
+ && chmod -R a+r /opt/authd/policies \
+ && sed -i "s/^# audit.*/audit = true/" /etc/authd/authd.toml \
+ && rm -rf /tmp/policies /var/lib/apt/lists/*
+
+FROM gcr.io/distroless/base-debian12:nonroot
 
 COPY --from=compile /out/authd /usr/local/bin/authd
 COPY --from=compile /src/migrations /opt/authd/migrations
@@ -26,22 +38,13 @@ COPY --from=ghcr.local/platform/authtools:1.4.0 /out/policyctl /usr/local/bin/po
 COPY --from=ghcr.local/platform/authtools:1.4.0 /out/authctl /usr/local/bin/authctl
 COPY --from=busybox:1.36.1 /bin/busybox /bin/busybox
 
-COPY --from=certs /opt/trust /usr/local/share/ca-certificates/internal
+COPY --from=trust /opt/trust /usr/local/share/ca-certificates/internal
+COPY --from=policy /opt/authd/policies /opt/authd/policies
 
 COPY --from=probe /opt/probe /usr/local/bin/probe
 COPY deploy/manifest.json /opt/manifest/manifest.json
 
-COPY policies/ /tmp/policies/
-RUN set -eux \
- && apt-get update \
- && apt-get install -y --no-install-recommends xz-utils \
- && mkdir -p /opt/authd/policies \
- && cp -r /tmp/policies/. /opt/authd/policies/ \
- && chmod -R a+r /opt/authd/policies \
- && rm -rf /tmp/policies /var/lib/apt/lists/*
-
-COPY deploy/authd.toml /etc/authd/authd.toml
-RUN sed -i "s/^# audit.*/audit = true/" /etc/authd/authd.toml
+COPY --from=policy /etc/authd/authd.toml /etc/authd/authd.toml
 
 EXPOSE 4000
 ENTRYPOINT ["/usr/local/bin/authd"]
