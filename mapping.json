@@ -1,0 +1,790 @@
+{
+  "dataset": "multi service dockerfile refactoring corpus",
+  "branch": "main",
+  "services": [
+    "services/api/Dockerfile",
+    "services/worker/Dockerfile",
+    "services/auth/Dockerfile"
+  ],
+  "build_contexts": [
+    "build/authtools",
+    "build/ca_bundle"
+  ],
+  "rule_catalogue": {
+    "R01": {
+      "name": "Inline RUN Instructions",
+      "technical_debt": "Image Size"
+    },
+    "R02": {
+      "name": "Update Base Image TAG",
+      "technical_debt": "Maintainability"
+    },
+    "R03": {
+      "name": "Add ENV Variable",
+      "technical_debt": "Maintainability"
+    },
+    "R04": {
+      "name": "Add ARG Instruction",
+      "technical_debt": "Duplication and Maintainability"
+    },
+    "R05": {
+      "name": "Extract Stage",
+      "technical_debt": "Modularity and Image Size"
+    },
+    "R06": {
+      "name": "Inline Stage",
+      "technical_debt": "Build Time"
+    },
+    "R07": {
+      "name": "Sort Instructions",
+      "technical_debt": "Build Time"
+    },
+    "R08": {
+      "name": "Replace ADD with COPY Instruction",
+      "technical_debt": "Maintainability"
+    },
+    "R09": {
+      "name": "Extract RUN Instructions",
+      "technical_debt": "Maintainability and Image Size"
+    },
+    "R10": {
+      "name": "Update Base Image",
+      "technical_debt": "Image Size and Maintainability"
+    },
+    "R11": {
+      "name": "Move Stage",
+      "technical_debt": "Build Time"
+    },
+    "R12": {
+      "name": "Remove RUN Instruction (mv)",
+      "technical_debt": "Image Size"
+    },
+    "R13": {
+      "name": "Update RUN Instruction",
+      "technical_debt": "Understandability"
+    },
+    "R14": {
+      "name": "Rename Image (Stage Alias Refactoring)",
+      "technical_debt": "Understandability"
+    }
+  },
+  "statistics": {
+    "commits": 76,
+    "pairs": 49,
+    "canonical": 15,
+    "false_positive_test": 14,
+    "false_negative_test": 14,
+    "mixed": 6,
+    "pairs_per_artifact": {
+      "services/api/Dockerfile": 18,
+      "services/worker/Dockerfile": 17,
+      "services/auth/Dockerfile": 14
+    },
+    "rules_covered": 14
+  },
+  "coverage": {
+    "R01": {
+      "canonical": [
+        "fced4529b8"
+      ],
+      "false_positive_test": [
+        "0e481a4ea4"
+      ],
+      "false_negative_test": [
+        "54b9d41288"
+      ],
+      "mixed": [
+        "da907131e0",
+        "98b472dcae"
+      ]
+    },
+    "R02": {
+      "canonical": [
+        "a68abe7378"
+      ],
+      "false_positive_test": [
+        "ff10bb7a8f"
+      ],
+      "false_negative_test": [
+        "e29629c459"
+      ],
+      "mixed": [
+        "3b2f51de1d"
+      ]
+    },
+    "R03": {
+      "canonical": [
+        "cbb3bc265f"
+      ],
+      "false_positive_test": [
+        "5b4d39b642"
+      ],
+      "false_negative_test": [
+        "9006fb00e4"
+      ],
+      "mixed": [
+        "881cf9f92b"
+      ]
+    },
+    "R04": {
+      "canonical": [
+        "eb74abfe6e",
+        "718ad826a1"
+      ],
+      "false_positive_test": [
+        "834996307c"
+      ],
+      "false_negative_test": [
+        "ac259db3ca"
+      ],
+      "mixed": [
+        "881cf9f92b"
+      ]
+    },
+    "R05": {
+      "canonical": [
+        "e6d35ca91c"
+      ],
+      "false_positive_test": [
+        "f7f6107a59"
+      ],
+      "false_negative_test": [
+        "979dd14093"
+      ],
+      "mixed": [
+        "3bd3cfdf51"
+      ]
+    },
+    "R06": {
+      "false_positive_test": [
+        "5d9f652177"
+      ],
+      "canonical": [
+        "5bc9178a87"
+      ],
+      "false_negative_test": [
+        "98fe3b065f"
+      ],
+      "mixed": [
+        "3b2f51de1d"
+      ]
+    },
+    "R07": {
+      "canonical": [
+        "e90264c961"
+      ],
+      "false_positive_test": [
+        "724b8f0297"
+      ],
+      "false_negative_test": [
+        "6781c2d64e"
+      ],
+      "mixed": [
+        "2bdfa49e9f"
+      ]
+    },
+    "R08": {
+      "canonical": [
+        "0ac6b7699e"
+      ],
+      "false_positive_test": [
+        "6f15b78eeb"
+      ],
+      "mixed": [
+        "da907131e0"
+      ],
+      "false_negative_test": [
+        "694ff06297"
+      ]
+    },
+    "R09": {
+      "false_positive_test": [
+        "d6583f9656"
+      ],
+      "canonical": [
+        "4acd35204b"
+      ],
+      "false_negative_test": [
+        "01ad7331b7"
+      ],
+      "mixed": [
+        "2bdfa49e9f"
+      ]
+    },
+    "R10": {
+      "canonical": [
+        "1204c8dd67"
+      ],
+      "false_positive_test": [
+        "8684e662b7"
+      ],
+      "false_negative_test": [
+        "69f7810ba3"
+      ],
+      "mixed": [
+        "3bd3cfdf51",
+        "98b472dcae"
+      ]
+    },
+    "R11": {
+      "false_negative_test": [
+        "cec0e2515e"
+      ],
+      "canonical": [
+        "a1d8253b6d"
+      ],
+      "false_positive_test": [
+        "4f533921ed"
+      ]
+    },
+    "R12": {
+      "canonical": [
+        "3498fc6d8a"
+      ],
+      "false_negative_test": [
+        "2b3683b1ec"
+      ],
+      "false_positive_test": [
+        "249df77009"
+      ],
+      "mixed": [
+        "2bdfa49e9f"
+      ]
+    },
+    "R13": {
+      "canonical": [
+        "1d60d2b9cf"
+      ],
+      "false_positive_test": [
+        "741f0eaa3d"
+      ],
+      "false_negative_test": [
+        "46cdb7acd0"
+      ],
+      "mixed": [
+        "da907131e0",
+        "881cf9f92b",
+        "98b472dcae"
+      ]
+    },
+    "R14": {
+      "canonical": [
+        "406e48e70c"
+      ],
+      "false_negative_test": [
+        "5cb6c318d5"
+      ],
+      "false_positive_test": [
+        "e5c2ebc16e"
+      ],
+      "mixed": [
+        "3b2f51de1d",
+        "3bd3cfdf51"
+      ]
+    }
+  },
+  "pairs": [
+    {
+      "sha_before": "7a3e568337f85fffd1e8787ca4a46f5333f39ea8",
+      "sha_after": "a68abe73781a0708b579197055a20e6b19a56c52",
+      "artifact": "services/api/Dockerfile",
+      "rule_ids": [
+        "R02"
+      ],
+      "test_case_type": "canonical",
+      "expected_detection": "R02 reported once, the floating tag on the base image is replaced by an explicit released version"
+    },
+    {
+      "sha_before": "a68abe73781a0708b579197055a20e6b19a56c52",
+      "sha_after": "fced4529b845ca990ad54d8be6f0bbdc7d21f0f1",
+      "artifact": "services/api/Dockerfile",
+      "rule_ids": [
+        "R01"
+      ],
+      "test_case_type": "canonical",
+      "expected_detection": "R01 reported once, three consecutive RUN instructions are aggregated into one"
+    },
+    {
+      "sha_before": "17ca5eccf8b909a2043eb7095884a6304452ea0c",
+      "sha_after": "1204c8dd67b97f6a447b1b68e33e5e97a016e318",
+      "artifact": "services/worker/Dockerfile",
+      "rule_ids": [
+        "R10"
+      ],
+      "test_case_type": "canonical",
+      "expected_detection": "R10 reported once, a general purpose distribution base is replaced by the language image and the manual interpreter provisioning disappears with it"
+    },
+    {
+      "sha_before": "1204c8dd67b97f6a447b1b68e33e5e97a016e318",
+      "sha_after": "3498fc6d8a93fa831f5af0210271f43b1882bc5c",
+      "artifact": "services/worker/Dockerfile",
+      "rule_ids": [
+        "R12"
+      ],
+      "test_case_type": "canonical",
+      "expected_detection": "R12 reported once, a redundant relocation of a copied file is removed and the copy writes to the final destination"
+    },
+    {
+      "sha_before": "25c70883c794f820807e9cdefae1267fc7684ffb",
+      "sha_after": "e6d35ca91c1d1ba00706a53a914e59fed8cc9f30",
+      "artifact": "services/auth/Dockerfile",
+      "rule_ids": [
+        "R05"
+      ],
+      "test_case_type": "canonical",
+      "expected_detection": "R05 reported once, the build moves into its own stage and the runtime keeps only the produced binary"
+    },
+    {
+      "sha_before": "e6d35ca91c1d1ba00706a53a914e59fed8cc9f30",
+      "sha_after": "f7f6107a59e89e193cda218e4b14a7869e85daad",
+      "artifact": "services/auth/Dockerfile",
+      "rule_ids": [
+        "R05"
+      ],
+      "test_case_type": "false_positive_test",
+      "must_not_report": "R05 must not be reported, a stage reference is added but the file already had two stages and none is created"
+    },
+    {
+      "sha_before": "f7f6107a59e89e193cda218e4b14a7869e85daad",
+      "sha_after": "0ac6b7699ebbb79722ae6443abb8e7d4cea1d634",
+      "artifact": "services/api/Dockerfile",
+      "rule_ids": [
+        "R08"
+      ],
+      "test_case_type": "canonical",
+      "expected_detection": "R08 reported for the three converted instructions"
+    },
+    {
+      "sha_before": "d80c1df1eadf255ca37960b81899e61c03442912",
+      "sha_after": "1d60d2b9cfe5ae6c4837706ada58f46eb3105d90",
+      "artifact": "services/api/Dockerfile",
+      "rule_ids": [
+        "R13"
+      ],
+      "test_case_type": "canonical",
+      "expected_detection": "R13 reported once, the body of a RUN instruction is reformatted across continuation lines"
+    },
+    {
+      "sha_before": "1d60d2b9cfe5ae6c4837706ada58f46eb3105d90",
+      "sha_after": "e90264c961f180ea7ad64bc7f173d6fee9c1f520",
+      "artifact": "services/worker/Dockerfile",
+      "rule_ids": [
+        "R07"
+      ],
+      "test_case_type": "canonical",
+      "expected_detection": "R07 reported once, the volatile source copy moves below the dependency installation with the instruction set unchanged"
+    },
+    {
+      "sha_before": "e90264c961f180ea7ad64bc7f173d6fee9c1f520",
+      "sha_after": "724b8f0297f54da178306cd5072bec44b16a787f",
+      "artifact": "services/worker/Dockerfile",
+      "rule_ids": [
+        "R07"
+      ],
+      "test_case_type": "false_positive_test",
+      "must_not_report": "R07 must not be reported, a header and section comments shift every instruction while the relative order is untouched"
+    },
+    {
+      "sha_before": "966955cabb2bf618f82ed0ac5f7b22497eab4294",
+      "sha_after": "979dd14093158b244e8a4902bf15f6e9695a721a",
+      "artifact": "services/auth/Dockerfile",
+      "rule_ids": [
+        "R05"
+      ],
+      "test_case_type": "false_negative_test",
+      "expected_detection": "R05 reported once, the extracted stage carries no alias, it is inserted above the existing stage and its output is pulled through a positional index"
+    },
+    {
+      "sha_before": "979dd14093158b244e8a4902bf15f6e9695a721a",
+      "sha_after": "406e48e70c1abf44d7de7a02d22e7c29c8c16d47",
+      "artifact": "services/auth/Dockerfile",
+      "rule_ids": [
+        "R14"
+      ],
+      "test_case_type": "canonical",
+      "expected_detection": "R14 reported once, an alias is assigned to an unnamed stage and the positional reference is replaced by it"
+    },
+    {
+      "sha_before": "406e48e70c1abf44d7de7a02d22e7c29c8c16d47",
+      "sha_after": "6f15b78eebbbdc990aeebeecf3f04d64a4b1c0d4",
+      "artifact": "services/api/Dockerfile",
+      "rule_ids": [
+        "R08"
+      ],
+      "test_case_type": "false_positive_test",
+      "must_not_report": "R08 must not be reported, the only ADD in the file is rewritten but it fetches a remote url and has to stay an ADD"
+    },
+    {
+      "sha_before": "6f15b78eebbbdc990aeebeecf3f04d64a4b1c0d4",
+      "sha_after": "cbb3bc265f316c07c3faf8cfd09a0ec4feac6f51",
+      "artifact": "services/api/Dockerfile",
+      "rule_ids": [
+        "R03"
+      ],
+      "test_case_type": "canonical",
+      "expected_detection": "R03 reported for the three variables introduced and used further down the file"
+    },
+    {
+      "sha_before": "cbb3bc265f316c07c3faf8cfd09a0ec4feac6f51",
+      "sha_after": "5b4d39b6422e92d20fd05ccace74e666bb0ec41e",
+      "artifact": "services/api/Dockerfile",
+      "rule_ids": [
+        "R03"
+      ],
+      "test_case_type": "false_positive_test",
+      "must_not_report": "R03 must not be reported, two existing keys change value and no variable is introduced"
+    },
+    {
+      "sha_before": "5b4d39b6422e92d20fd05ccace74e666bb0ec41e",
+      "sha_after": "d6583f96565db2ffc16e63f5c19b52f138a5c14b",
+      "artifact": "services/worker/Dockerfile",
+      "rule_ids": [
+        "R09"
+      ],
+      "test_case_type": "false_positive_test",
+      "must_not_report": "R09 must not be reported, a script is added and copied into the image while the chained RUN above keeps every one of its commands and the script only wraps the process at startup"
+    },
+    {
+      "sha_before": "d6583f96565db2ffc16e63f5c19b52f138a5c14b",
+      "sha_after": "4acd35204b6066136a60b191820f05e80eed5c58",
+      "artifact": "services/worker/Dockerfile",
+      "rule_ids": [
+        "R09"
+      ],
+      "test_case_type": "canonical",
+      "expected_detection": "R09 reported once, a long chained RUN is extracted into an external script that the image copies in and executes"
+    },
+    {
+      "sha_before": "c9c1a6282a6965c724e7eb16df66337f50825d6f",
+      "sha_after": "5cb6c318d53c4be63338f5d9be1289628a8b0c19",
+      "artifact": "services/auth/Dockerfile",
+      "rule_ids": [
+        "R14"
+      ],
+      "test_case_type": "false_negative_test",
+      "expected_detection": "R14 reported once, an existing alias is replaced and one of its references lives in a FROM instruction where a later stage inherits from it"
+    },
+    {
+      "sha_before": "05eecec711f035a067c6bc55d4071dc428478f6b",
+      "sha_after": "741f0eaa3d4112cf836a1d8c32b139863efb0f59",
+      "artifact": "services/api/Dockerfile",
+      "rule_ids": [
+        "R13"
+      ],
+      "test_case_type": "false_positive_test",
+      "must_not_report": "R13 must not be reported, the reformatted instruction is a LABEL and no RUN body changes"
+    },
+    {
+      "sha_before": "865169fd1542ec15a8271c7188102c6097e2fe2a",
+      "sha_after": "0e481a4ea4ddb784a15aedd0f392fb5c65c449c6",
+      "artifact": "services/api/Dockerfile",
+      "rule_ids": [
+        "R01"
+      ],
+      "test_case_type": "false_positive_test",
+      "must_not_report": "R01 must not be reported, the RUN count drops because an instruction is deleted and nothing is aggregated"
+    },
+    {
+      "sha_before": "0e481a4ea4ddb784a15aedd0f392fb5c65c449c6",
+      "sha_after": "01ad7331b71d8b6386445470a6f1b21f648fa195",
+      "artifact": "services/worker/Dockerfile",
+      "rule_ids": [
+        "R09"
+      ],
+      "test_case_type": "false_negative_test",
+      "expected_detection": "R09 reported once, the extraction adds no copy instruction because the script arrives inside the source tree copied above"
+    },
+    {
+      "sha_before": "7e2b4a9c3bd5aa1361493e045928b667f370d4b2",
+      "sha_after": "2b3683b1ecfa18c6a62db2273e949abc316789b4",
+      "artifact": "services/worker/Dockerfile",
+      "rule_ids": [
+        "R12"
+      ],
+      "test_case_type": "false_negative_test",
+      "expected_detection": "R12 reported once, the removed relocation sits in the middle of a chain of five commands behind a shell option line"
+    },
+    {
+      "sha_before": "2b3683b1ecfa18c6a62db2273e949abc316789b4",
+      "sha_after": "e5c2ebc16e202f07edfe6eedac72bbfe7d0f27c5",
+      "artifact": "services/auth/Dockerfile",
+      "rule_ids": [
+        "R14"
+      ],
+      "test_case_type": "false_positive_test",
+      "must_not_report": "R14 must not be reported, the changed stage reference points at an external image and no stage alias is created, replaced or removed"
+    },
+    {
+      "sha_before": "e5c2ebc16e202f07edfe6eedac72bbfe7d0f27c5",
+      "sha_after": "5d9f652177c08a0d54ff5a2fcadf1237662efba5",
+      "artifact": "services/auth/Dockerfile",
+      "rule_ids": [
+        "R06"
+      ],
+      "test_case_type": "false_positive_test",
+      "must_not_report": "R06 must not be reported, the stage count drops but the removed stage was dead code and nothing is folded into another stage"
+    },
+    {
+      "sha_before": "4316c0896a7585c234f649a3de40288454e345d1",
+      "sha_after": "54b9d41288fbdf20395b6808a47c87731b7cb21c",
+      "artifact": "services/api/Dockerfile",
+      "rule_ids": [
+        "R01"
+      ],
+      "test_case_type": "false_negative_test",
+      "expected_detection": "R01 reported once, two RUN instructions in the JSON exec form separated by comments are aggregated into one"
+    },
+    {
+      "sha_before": "54b9d41288fbdf20395b6808a47c87731b7cb21c",
+      "sha_after": "ff10bb7a8fc93785987d54d355a84034339b11c8",
+      "artifact": "services/api/Dockerfile",
+      "rule_ids": [
+        "R02"
+      ],
+      "test_case_type": "false_positive_test",
+      "must_not_report": "R02 must not be reported, a version literal changes in the image metadata while the base image and its tag are untouched"
+    },
+    {
+      "sha_before": "a519926e2a0ad4f45922d050ded83993f058ea51",
+      "sha_after": "249df77009b190a08a2022f78fffc6abd3c776a4",
+      "artifact": "services/worker/Dockerfile",
+      "rule_ids": [
+        "R12"
+      ],
+      "test_case_type": "false_positive_test",
+      "must_not_report": "R12 must not be reported, the copy is adjusted and the RUN below it disappears but that instruction changed permissions and holds no relocation"
+    },
+    {
+      "sha_before": "249df77009b190a08a2022f78fffc6abd3c776a4",
+      "sha_after": "eb74abfe6e8f0a6af895c9af27f761c4526a5711",
+      "artifact": "services/worker/Dockerfile",
+      "rule_ids": [
+        "R04"
+      ],
+      "test_case_type": "canonical",
+      "expected_detection": "R04 reported once for the build argument that now drives the base image reference"
+    },
+    {
+      "sha_before": "eb74abfe6e8f0a6af895c9af27f761c4526a5711",
+      "sha_after": "5bc9178a87eb21c70ac5235b0024fefd4f3c5df5",
+      "artifact": "services/auth/Dockerfile",
+      "rule_ids": [
+        "R06"
+      ],
+      "test_case_type": "canonical",
+      "expected_detection": "R06 reported once, a stage sharing the runtime base image is collapsed into it and its stage reference disappears"
+    },
+    {
+      "sha_before": "a360a9d89a7829461d042bc23cf1cb291221306f",
+      "sha_after": "cec0e2515e95fb666c4c427a30c49d3af8770d42",
+      "artifact": "services/auth/Dockerfile",
+      "rule_ids": [
+        "R11"
+      ],
+      "test_case_type": "false_negative_test",
+      "expected_detection": "R11 reported once, the stage body migrates to an independent context while the stage header and its alias stay behind as a thin reference so the stage count and the consumer never change"
+    },
+    {
+      "sha_before": "cec0e2515e95fb666c4c427a30c49d3af8770d42",
+      "sha_after": "718ad826a1d501b76f48f6fd91c05e6b140ce78a",
+      "artifact": "services/api/Dockerfile",
+      "rule_ids": [
+        "R04"
+      ],
+      "test_case_type": "canonical",
+      "expected_detection": "R04 reported once for the build argument that now drives the base image reference"
+    },
+    {
+      "sha_before": "718ad826a1d501b76f48f6fd91c05e6b140ce78a",
+      "sha_after": "e29629c459ce8e8bc0e01a3f64b46d9c63b25a1a",
+      "artifact": "services/api/Dockerfile",
+      "rule_ids": [
+        "R02"
+      ],
+      "test_case_type": "false_negative_test",
+      "expected_detection": "R02 reported once, the effective base image tag changes through the default value of a build argument while the FROM line stays byte identical"
+    },
+    {
+      "sha_before": "e29629c459ce8e8bc0e01a3f64b46d9c63b25a1a",
+      "sha_after": "9006fb00e4f495593370eb05ca474e7adda52fea",
+      "artifact": "services/api/Dockerfile",
+      "rule_ids": [
+        "R03"
+      ],
+      "test_case_type": "false_negative_test",
+      "expected_detection": "R03 reported for the three variables added through the legacy space separated form and a continuation block"
+    },
+    {
+      "sha_before": "9006fb00e4f495593370eb05ca474e7adda52fea",
+      "sha_after": "834996307cccf63f69daad537bccacb827779471",
+      "artifact": "services/worker/Dockerfile",
+      "rule_ids": [
+        "R04"
+      ],
+      "test_case_type": "false_positive_test",
+      "must_not_report": "R04 must not be reported, the added declaration only pulls an existing global argument into the scope of the stage and introduces no new variable"
+    },
+    {
+      "sha_before": "834996307cccf63f69daad537bccacb827779471",
+      "sha_after": "ac259db3cad337c1c214e134b507ed20a2a0439b",
+      "artifact": "services/worker/Dockerfile",
+      "rule_ids": [
+        "R04"
+      ],
+      "test_case_type": "false_negative_test",
+      "expected_detection": "R04 reported for BUILD_REVISION, declared without a default value in the global scope and repeated for stage scope"
+    },
+    {
+      "sha_before": "ac259db3cad337c1c214e134b507ed20a2a0439b",
+      "sha_after": "8684e662b76e3b32884f591cb5645a3489664ca5",
+      "artifact": "services/worker/Dockerfile",
+      "rule_ids": [
+        "R10"
+      ],
+      "test_case_type": "false_positive_test",
+      "must_not_report": "R10 must not be reported, the reference gains a registry host and a namespace yet resolves to the same image"
+    },
+    {
+      "sha_before": "5156d4669ab234f5e0f36af6f9bb74e904c117fc",
+      "sha_after": "98fe3b065f4f1feb0966ab8b8e8cb05b92a7902d",
+      "artifact": "services/auth/Dockerfile",
+      "rule_ids": [
+        "R06"
+      ],
+      "test_case_type": "false_negative_test",
+      "expected_detection": "R06 reported once, a stage is folded into another one while the file stays a multi stage build with stage references left"
+    },
+    {
+      "sha_before": "98fe3b065f4f1feb0966ab8b8e8cb05b92a7902d",
+      "sha_after": "a1d8253b6d293cd775519787cf4339d164c17e3e",
+      "artifact": "services/auth/Dockerfile",
+      "rule_ids": [
+        "R11"
+      ],
+      "test_case_type": "canonical",
+      "expected_detection": "R11 reported once, a stage leaves the multi stage context and its artefacts arrive from the image published by that independent build"
+    },
+    {
+      "sha_before": "a1d8253b6d293cd775519787cf4339d164c17e3e",
+      "sha_after": "46cdb7acd0c86b86ba446233bb8447ef92ed200a",
+      "artifact": "services/api/Dockerfile",
+      "rule_ids": [
+        "R13"
+      ],
+      "test_case_type": "false_negative_test",
+      "expected_detection": "R13 reported once, the RUN body is reformatted into a heredoc block that shell form parsers read as free text"
+    },
+    {
+      "sha_before": "49bc58f0cf5a3646f04673708bf22ad6941619ce",
+      "sha_after": "da907131e0b8b527e23fad72751d99eb6dad5faa",
+      "artifact": "services/api/Dockerfile",
+      "rule_ids": [
+        "R01",
+        "R08",
+        "R13"
+      ],
+      "test_case_type": "mixed",
+      "expected_detection": "R01, R08 and R13 reported on this revision of the api image"
+    },
+    {
+      "sha_before": "f08c6f421051c3e077c7aca02f330da67d22a81a",
+      "sha_after": "69f7810ba3ed7cc66733fa86a015b2a9bb00ab10",
+      "artifact": "services/worker/Dockerfile",
+      "rule_ids": [
+        "R10"
+      ],
+      "test_case_type": "false_negative_test",
+      "expected_detection": "R10 reported once, the base image of an intermediate stage is replaced while the first and the last FROM instructions of the file stay as they were"
+    },
+    {
+      "sha_before": "48023355a5d8fe8a072bf47f148eca88a56a31e7",
+      "sha_after": "4f533921ed1f37ece50a7c97808fe9513c6f27e4",
+      "artifact": "services/auth/Dockerfile",
+      "rule_ids": [
+        "R11"
+      ],
+      "test_case_type": "false_positive_test",
+      "must_not_report": "R11 must not be reported, external stage references change registry but no stage leaves the file and no build work moves anywhere"
+    },
+    {
+      "sha_before": "fb49a31bf5d615b04f04034038b9a6e5b23bc8d1",
+      "sha_after": "3b2f51de1d3879f7e9bd23b9510183b6e8b2c49b",
+      "artifact": "services/auth/Dockerfile",
+      "rule_ids": [
+        "R02",
+        "R06",
+        "R14"
+      ],
+      "test_case_type": "mixed",
+      "expected_detection": "R02, R06 and R14 reported on this revision of the auth image"
+    },
+    {
+      "sha_before": "146247ded27227ef1fa773dd34ee61f0682a1991",
+      "sha_after": "694ff06297bafc48a48229605be203ab8223d10e",
+      "artifact": "services/api/Dockerfile",
+      "rule_ids": [
+        "R08"
+      ],
+      "test_case_type": "false_negative_test",
+      "expected_detection": "R08 reported for both instructions, converted while carrying an ownership flag and rewrapped across continuation lines"
+    },
+    {
+      "sha_before": "3ec74323f02273db1f4b2b4f78b84983d7e668e1",
+      "sha_after": "6781c2d64e11003116357f8721212506a6366e56",
+      "artifact": "services/worker/Dockerfile",
+      "rule_ids": [
+        "R07"
+      ],
+      "test_case_type": "false_negative_test",
+      "expected_detection": "R07 reported once, the relocated instruction gains trailing separators in the same edit so the moved lines are not textually identical"
+    },
+    {
+      "sha_before": "a1c9297351b0e12fbcf55fb63e41a19e1652a605",
+      "sha_after": "2bdfa49e9f2f8e994490475da69334469d2e5774",
+      "artifact": "services/worker/Dockerfile",
+      "rule_ids": [
+        "R07",
+        "R09",
+        "R12"
+      ],
+      "test_case_type": "mixed",
+      "expected_detection": "R07, R09 and R12 reported on this revision of the worker image"
+    },
+    {
+      "sha_before": "876aec710eb38d05f24458475513a52c7218c02a",
+      "sha_after": "3bd3cfdf51b7126d9757cb35217811403332764d",
+      "artifact": "services/auth/Dockerfile",
+      "rule_ids": [
+        "R05",
+        "R10",
+        "R14"
+      ],
+      "test_case_type": "mixed",
+      "expected_detection": "R05, R10 and R14 reported on this revision of the auth image"
+    },
+    {
+      "sha_before": "3bd3cfdf51b7126d9757cb35217811403332764d",
+      "sha_after": "881cf9f92b8b0084348210e380e95780c11a80fe",
+      "artifact": "services/api/Dockerfile",
+      "rule_ids": [
+        "R03",
+        "R04",
+        "R13"
+      ],
+      "test_case_type": "mixed",
+      "expected_detection": "R03, R04 and R13 reported on this revision of the api image"
+    },
+    {
+      "sha_before": "58d9f5c08257aba7d4edbf473fab1ec13a1d570d",
+      "sha_after": "98b472dcae70d251a5e6eabecf0383bb5f1b9fa4",
+      "artifact": "services/worker/Dockerfile",
+      "rule_ids": [
+        "R01",
+        "R10",
+        "R13"
+      ],
+      "test_case_type": "mixed",
+      "expected_detection": "R01, R10 and R13 reported on this revision of the worker image"
+    }
+  ]
+}
