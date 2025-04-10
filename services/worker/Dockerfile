@@ -6,12 +6,14 @@
 ARG PY_TAG=3.11-slim-bookworm
 ARG BUILD_REVISION
 
-FROM debian:12-slim AS reports
+FROM python:3.11-slim-bookworm AS reports
 
-RUN apt-get update
-RUN apt-get install -y --no-install-recommends python3 python3-pip && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /opt/reports/templates && cp /etc/os-release /opt/reports/templates/base_os && python3 -c "print('statement renderer ready')" > /opt/reports/status && chmod -R a+r /opt/reports
+RUN mkdir -p /opt/reports/templates \
+ && cp /etc/os-release /opt/reports/templates/base_os \
+ && python3 -c "print('statement renderer ready')" > /opt/reports/status \
+ && chmod -R a+r /opt/reports
 
 FROM alpine:3.19 AS schema
 
