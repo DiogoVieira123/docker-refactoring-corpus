@@ -71,10 +71,10 @@
   "statistics": {
     "commits": 76,
     "pairs": 49,
-    "canonical": 15,
+    "canonical": 14,
     "false_positive_test": 14,
     "false_negative_test": 14,
-    "mixed": 6,
+    "mixed": 7,
     "pairs_per_artifact": {
       "services/api/Dockerfile": 18,
       "services/worker/Dockerfile": 17,
@@ -329,10 +329,11 @@
       "sha_after": "e6d35ca91c1d1ba00706a53a914e59fed8cc9f30",
       "artifact": "services/auth/Dockerfile",
       "rule_ids": [
-        "R05"
+        "R05",
+        "R14"
       ],
-      "test_case_type": "canonical",
-      "expected_detection": "R05 reported once, the build moves into its own stage and the runtime keeps only the produced binary"
+      "test_case_type": "mixed",
+      "expected_detection": "R05 and R14 reported on this revision of the auth image"
     },
     {
       "sha_before": "e6d35ca91c1d1ba00706a53a914e59fed8cc9f30",
